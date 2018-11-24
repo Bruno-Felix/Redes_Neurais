@@ -189,16 +189,16 @@ int main(){
 void salvarVetorGrass(float *vetNormalizado){
 
   FILE *grass;
-  grass = fopen("../data/Vetores/vetorGrass.txt", "w");
+  grass = fopen("Vetores/vetorGrass.txt", "w");
   
   for(int i=0; i < 536; i++){
 
     if(i==535){
-      printf("Vetor: %f\n", vetNormalizado[i]);
+      //printf("Vetor: %f\n", vetNormalizado[i]);
       fprintf(grass, "%f", vetNormalizado[i]);
     }
     else{
-      printf("Vetor: %f\n", vetNormalizado[i]);
+      //printf("Vetor: %f\n", vetNormalizado[i]);
       fprintf(grass, "%f\n", vetNormalizado[i]);
     }
   }
@@ -209,16 +209,16 @@ void salvarVetorGrass(float *vetNormalizado){
 void salvarVetorAsphalt(float *vetNormalizado){
 
   FILE *asphalt;
-  asphalt = fopen("../data/Vetores/vetorAsphalt.txt", "w");
+  asphalt = fopen("Vetores/vetorAsphalt.txt", "w");
   
   for(int i=0; i < 536; i++){
 
     if(i == 535){
-      printf("Vetor: %f\n", vetNormalizado[i]);
+      //printf("Vetor: %f\n", vetNormalizado[i]);
       fprintf(asphalt, "%f", vetNormalizado[i]);
     }
     else{
-      printf("Vetor: %f\n", vetNormalizado[i]);
+      //printf("Vetor: %f\n", vetNormalizado[i]);
       fprintf(asphalt, "%f\n", vetNormalizado[i]);
     }
   }
