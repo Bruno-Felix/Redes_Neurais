@@ -62,8 +62,8 @@ void calculaMediaTreinamento(float **matTreinamento, float *vetMedia);
 /* Preenche a matriz de resultado a partir de vetores normalizados */
 void setResultado(float **matResultado, float *vetNormalizado, int *contador);
 
-void salvarVetorAsphalt(float *vetNormalizado);
-void salvarVetorGrass(float *vetNormalizado);
+void salvarVetorAsphalt(FILE *auxAsphalt, float *vetNormalizado, int asphaltVet);
+void salvarVetorGrass(FILE *auxGrass,  float *vetNormalizado, int grassVet);
 
 
 
@@ -81,6 +81,13 @@ int main(){
     *(resultadoAsfalto+i) = (float *)malloc(536*sizeof(float));
   }
   doRandom(asphalt, 50);
+
+  FILE *auxAsphalt;
+  auxAsphalt = fopen("Vetores/vetorAsphalt.txt", "w");
+
+  FILE *auxGrass;
+  auxGrass = fopen("Vetores/vetorGrass.txt", "w");
+
   // Contador para as posicoes do vetor de resultados do asphalt
   aux = 0;
   // Percorre arquivos asphalt
@@ -107,6 +114,10 @@ int main(){
     dataNormalize(ilbpGlcm, ilbpGlcmNormalizadoAsphaut, 536);
     //setResultado(resultadoAsfalto, ilbpGlcmNormalizadoAsphaut, &aux);
 
+
+    printf("Vetor Asphalt:\n");
+    salvarVetorAsphalt(auxAsphalt, ilbpGlcmNormalizadoAsphaut, asphalt[i]);
+
     // Liberação de memória
     free(ilbp);
     free(glcm);
@@ -117,6 +128,7 @@ int main(){
     }
     free(matrizFile);
     fclose(fileAsphalt);
+    free(ilbpGlcmNormalizadoAsphaut);
   }
 
   // Tratamento de imagens de grama
@@ -127,7 +139,7 @@ int main(){
   doRandom(grass, 50);
   // Contador para as posicoes do vetor de resultados do asphalt
   aux = 0;
-  // Percorre arquivos asphalt
+  // Percorre arquivos grass
   for(int i=0; i<50; i++){
     printf("Arquivo número %d\n", i);
     FILE *fileGrass;
@@ -151,6 +163,10 @@ int main(){
     dataNormalize(ilbpGlcm, ilbpGlcmNormalizadoGrass, 536);
     //setResultado(resultadoGrama, ilbpGlcmNormalizadoGrass, &aux);
 
+
+    printf("\n\nVetor Grass:\n");
+    salvarVetorGrass(auxGrass, ilbpGlcmNormalizadoGrass, grass[i]);
+
     // Liberação de memória
     free(ilbp);
     free(glcm);
@@ -161,69 +177,49 @@ int main(){
     }
     free(matrizFile);
     fclose(fileGrass);
+    free(ilbpGlcmNormalizadoGrass);
   }
 
-  /* mediaGrama = (float *) calloc(536, sizeof (float));
-  mediaAsfalto = (float *) calloc(536, sizeof (float));
-  calculaMediaTreinamento(resultadoGrama, mediaGrama);
-  calculaMediaTreinamento(resultadoAsfalto, mediaAsfalto); */
-
-  /* free(mediaGrama);
-  free(mediaAsfalto); */
-
-  printf("Vetor Asphalt:\n");
-  salvarVetorAsphalt(ilbpGlcmNormalizadoAsphaut);
-
-  printf("\n\n*********************************************\n\n");
-  
-  printf("Vetor Grass:\n");
-  salvarVetorGrass(ilbpGlcmNormalizadoGrass);
-
-  free(ilbpGlcmNormalizadoAsphaut);
-  free(ilbpGlcmNormalizadoGrass);
+  fclose(auxAsphalt);
+  fclose(auxGrass);
 
   return 0;
 }
 
 
-void salvarVetorGrass(float *vetNormalizado){
-
-  FILE *grass;
-  grass = fopen("Vetores/vetorGrass.txt", "w");
+void salvarVetorGrass(FILE *grass, float *vetNormalizado, int grassVet){
+  
+  char aux = 'G';
+  fprintf(grass, "%c%d:\n", aux, grassVet);
   
   for(int i=0; i < 536; i++){
 
-    if(i==535){
+    if(i == 535){
       //printf("Vetor: %f\n", vetNormalizado[i]);
-      fprintf(grass, "%f", vetNormalizado[i]);
+      fprintf(grass, "%f\n", vetNormalizado[i]);
     }
     else{
       //printf("Vetor: %f\n", vetNormalizado[i]);
       fprintf(grass, "%f\n", vetNormalizado[i]);
     }
   }
-
-  fclose(grass);
 }
 
-void salvarVetorAsphalt(float *vetNormalizado){
-
-  FILE *asphalt;
-  asphalt = fopen("Vetores/vetorAsphalt.txt", "w");
+void salvarVetorAsphalt(FILE *asphalt, float *vetNormalizado, int asphaltVet){
+char aux = 'A';
+  fprintf(asphalt, "%c%d:\n", aux, asphaltVet);
   
   for(int i=0; i < 536; i++){
 
     if(i == 535){
       //printf("Vetor: %f\n", vetNormalizado[i]);
-      fprintf(asphalt, "%f", vetNormalizado[i]);
+      fprintf(asphalt, "%f\n", vetNormalizado[i]);
     }
     else{
       //printf("Vetor: %f\n", vetNormalizado[i]);
       fprintf(asphalt, "%f\n", vetNormalizado[i]);
     }
   }
-
-  fclose(asphalt);
 }
 
 void calculaMediaTreinamento(float **matTreinamento, float *vetMedia){
