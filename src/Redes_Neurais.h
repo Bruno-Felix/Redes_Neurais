@@ -17,6 +17,8 @@ matrizTreinamento[i][0] = G ou A
 
 
  */
+void leituraVetorGrama();
+void leituraVetorAsfalto();
 #ifndef REDES_NEURAIS_H
 #define REDES_NEURAIS_H
 
