@@ -6,10 +6,19 @@
 #include "Redes_Neurais.h"
 
 
+int getParametroLinhaComando(int argc, char *argv[], int *parametro);
+void do_vetor_random(double *vetor, int semente);
+
 int getParametroLinhaComando(int argc, char *argv[], int *parametro){
   if (argc == 1){
     return 0;
   }else{
-    *param = atoi(argv[1]);
+    *parametro = atoi(argv[1]);
     return 1;
+}
+
+void random536(double *vetor, int semente){
+  srand(time(NULL)+semente);
+  for (int i=0; i<536; i++){
+    *(vetor+i) = (rand() % 31999) - 16000;
 }
