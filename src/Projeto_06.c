@@ -8,12 +8,10 @@
 
 //MAIN_____________________________________//
 int main(){
-
-    leituraVetorGrama();
-
-    printf("\n\n******************************************************************\n\n");
-
-    leituraVetorAsfalto();
+    
+    int *vetorStatusTreinamento = criarVetorStatusTreinamento();
+    double **matrizTreinamento = criarMatrizTreinamento(vetorStatusTreinamento);
+    
     
     return 0;
 }
