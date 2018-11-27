@@ -23,9 +23,9 @@ matrizTreinamento[i][0] = G ou A
 
 
 typedef struct neuronio{
-    double d;
+    double d; //Gradiente
     double w[536]; //Núcleo
-    double b;
+    double b; //vies
     double v; //Saida
     struct neuronio **proxima;
 }Neuronio;
