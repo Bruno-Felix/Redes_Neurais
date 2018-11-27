@@ -27,7 +27,6 @@ typedef struct neuronio{
     double w[536]; //Núcleo
     double b; //vies
     double v; //Saida
-    struct neuronio **proxima;
 }Neuronio;
 
 
