@@ -1,4 +1,4 @@
-/* 
+/*
 1º - Ler o arquivo   Grama e salvar os vetores em uma   matrizGrama[25][536];
    - Ler o arquivo Asfalto e salvar os vetores em uma matrizAsfalto[25][536];
 
@@ -22,12 +22,13 @@ matrizTreinamento[i][0] = G ou A
 
 
 
-
-
-
-
-
-
+typedef struct neuronio{
+    double d;
+    double w[536]; //Núcleo
+    double b;
+    double v; //Saida
+    struct neuronio **proxima;
+}Neuronio;
 
 
 
