@@ -115,7 +115,6 @@ int main(){
     //setResultado(resultadoAsfalto, ilbpGlcmNormalizadoAsphaut, &aux);
 
 
-    printf("Vetor Asphalt:\n");
     salvarVetorAsphalt(auxAsphalt, ilbpGlcmNormalizadoAsphaut, asphalt[i]);
 
     // Liberação de memória
@@ -163,8 +162,6 @@ int main(){
     dataNormalize(ilbpGlcm, ilbpGlcmNormalizadoGrass, 536);
     //setResultado(resultadoGrama, ilbpGlcmNormalizadoGrass, &aux);
 
-
-    printf("\n\nVetor Grass:\n");
     salvarVetorGrass(auxGrass, ilbpGlcmNormalizadoGrass, grass[i]);
 
     // Liberação de memória
@@ -189,9 +186,6 @@ int main(){
 
 void salvarVetorGrass(FILE *grass, float *vetNormalizado, int grassVet){
   
-  char aux = 'G';
-  fprintf(grass, "%c%d:\n", aux, grassVet);
-  
   for(int i=0; i < 536; i++){
 
     if(i == 535){
@@ -206,8 +200,6 @@ void salvarVetorGrass(FILE *grass, float *vetNormalizado, int grassVet){
 }
 
 void salvarVetorAsphalt(FILE *asphalt, float *vetNormalizado, int asphaltVet){
-char aux = 'A';
-  fprintf(asphalt, "%c%d:\n", aux, asphaltVet);
   
   for(int i=0; i < 536; i++){
 
