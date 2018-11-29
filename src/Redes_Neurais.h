@@ -3,8 +3,12 @@
 
 double **leituraVetorGrama();
 double **leituraVetorAsfalto();
+
 int *criarVetorStatusTreinamento();
+int *criarVetorStatusTeste();
+
 double **criarMatrizTreinamento(int *VetorStatusTreinamento);
+double **criarMatrizTeste(int *criarVetorStatusTreinamento);
 
 typedef struct neuronio{
     double d; //Gradiente

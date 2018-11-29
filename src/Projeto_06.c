@@ -8,12 +8,18 @@
 
 //MAIN_____________________________________//
 int main(){
-    //vetorStatusTreinamento: 0 -> Asfalto | 1 -> Grama
+    //vetorStatus: 0 -> Asfalto | 1 -> Grama
     int *vetorStatusTreinamento = criarVetorStatusTreinamento();
-    //matrizTreinamento: vetor[536] de cada imagem de treinamento
+    int *vetorStatusTeste = criarVetorStatusTeste();
+
+    //matriz: vetor[536] de cada imagem de treinamento ou teste
     double **matrizTreinamento = criarMatrizTreinamento(vetorStatusTreinamento);
+    double **matrizTeste = criarMatrizTeste(vetorStatusTeste);
     
     
+
+
+
     return 0;
 }
 //_________________________________________//

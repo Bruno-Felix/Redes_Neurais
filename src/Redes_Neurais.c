@@ -4,9 +4,10 @@
 #include <math.h>
 #include "Redes_Neurais.h"
 
+
 double **leituraVetorGrama(){
 
-    double **matrizGrama = (double **)malloc(25*sizeof(double));
+    double **matrizGrama = (double **)malloc(50*sizeof(double));
     double numGrama;
 
     FILE *grama;
@@ -17,8 +18,10 @@ double **leituraVetorGrama(){
         exit(0);
     }
     
-    for(int i=0; i<25; i++){
+    for(int i=0; i<50; i++){
+        
         matrizGrama[i] = (double *)malloc(536*sizeof(double));
+        
         for(int j=0; j<536; j++){
             fscanf(grama, "%lf", &numGrama);
             matrizGrama[i][j] = numGrama;
@@ -36,7 +39,7 @@ double **leituraVetorGrama(){
 
 double **leituraVetorAsfalto(){
 
-    double **matrizAsfalto = (double **)malloc(25*sizeof(double));
+    double **matrizAsfalto = (double **)malloc(50*sizeof(double));
     double numAsfalto;
 
     FILE *asfalto;
@@ -47,8 +50,10 @@ double **leituraVetorAsfalto(){
         exit(0);
     }
     
-    for(int i=0; i<25; i++){
+    for(int i=0; i<50; i++){
+        
         matrizAsfalto[i] = (double *)malloc(536*sizeof(double));
+        
         for(int j=0; j<536; j++){
             fscanf(asfalto, "%lf", &numAsfalto);
             matrizAsfalto[i][j] = numAsfalto;
@@ -63,6 +68,7 @@ double **leituraVetorAsfalto(){
 
     return matrizAsfalto;
 }
+
 
 int *criarVetorStatusTreinamento(){
 
@@ -130,13 +136,14 @@ double **criarMatrizTreinamento(int *VetorStatusTreinamento){
 
         matrizTreinamento[i] = (double *)malloc(536*sizeof(double));
 
+        //vetorStatusTreinamento: 0 -> Asfalto | 1 -> Grama
         if(VetorStatusTreinamento[i] == 0){
             matrizTreinamento[i] = matrizAsfalto[a];
             //printf("A: %d\n", a);
             a++;
         }
         else{
-            matrizTreinamento[i] = matrizAsfalto[g];
+            matrizTreinamento[i] = matrizGrama[g];
             //printf("B:            %d\n", g);
             g++;
         }
@@ -150,4 +157,76 @@ double **criarMatrizTreinamento(int *VetorStatusTreinamento){
     
 
     return matrizTreinamento;
+}
+
+
+int *criarVetorStatusTeste(){
+
+    srand(time(NULL));
+
+    int *vetorStatusTeste = (int *)malloc(50*sizeof(int));
+
+    int Asfalto = 25, Grama = 25;
+    
+    for(int i=0; i<50; i++){
+
+        int auxAleat = rand() % 2; // auxAleat = 0 -> A | auxAleat = 1 -> B
+
+        if(Asfalto > 0 && Grama > 0){
+            if(auxAleat == 0){
+                vetorStatusTeste[i] = 0;
+                //printf("%d - Status Asfalto[%d]: %d\n", i+1, Asfalto, vetorStatusTeste[i]);
+                Asfalto --;
+            }
+            else if(auxAleat == 1){
+                vetorStatusTeste[i] = 1;
+                //printf("%d -                                     Status Grama[%d]: %d\n", i+1, Grama, vetorStatusTeste[i]);
+                Grama --;
+            }
+        }
+        else{
+            if(Asfalto == 0){
+                vetorStatusTeste[i] = 1;
+                //printf("%d -                                     Status Grama:[%d]: %d\n", i+1, Grama, vetorStatusTeste[i]);
+                Grama --;
+            }
+            else if(Grama == 0){
+                vetorStatusTeste[i] = 0;
+                //printf("%d - Status Asfalto[%d]: %d\n", i+1, Asfalto, vetorStatusTeste[i]);
+                Asfalto --; 
+            }
+        }
+    }
+
+    return vetorStatusTeste;
+}
+
+double **criarMatrizTeste(int *criarVetorStatusTeste){
+
+    double **matrizAsfalto = leituraVetorAsfalto();
+    double **matrizGrama = leituraVetorGrama();
+
+    double **matrizTeste = (double **)malloc(50*sizeof(double));
+
+    
+    int a = 25, g = 25;
+
+    for(int i=0; i<50; i++){
+
+        matrizTeste[i] = (double *)malloc(536*sizeof(double));
+        
+        //criarVetorStatusTeste: 0 -> Asfalto | 1 -> Grama
+        if(criarVetorStatusTeste[i] == 0){
+            matrizTeste[i] = matrizAsfalto[a];
+            //printf("A: %d\n", a);
+            a++;
+        }
+        else{
+            matrizTeste[i] = matrizGrama[g];
+            //printf("B:            %d\n", g);
+            g++;
+        }
+    }
+
+    return matrizTeste;
 }
