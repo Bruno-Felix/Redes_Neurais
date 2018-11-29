@@ -21,13 +21,16 @@ matrizTreinamento[i][0] = G ou A
 #define REDES_NEURAIS_H
 
 
-
 typedef struct neuronio{
-    double d; //Gradiente
+    // double p[536]; //Entrada
     double w[536]; //Núcleo
-    double b; //vies
-    double v; //Saida
+    double b;
+    double s; //Saida
+    struct neuronio **proxima;
 }Neuronio;
+
+int getParametroLinhaComando(int argc, char *argv[], int *parametro);
+int criacamada2(int *parametro);
 
 
 

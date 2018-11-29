@@ -6,19 +6,33 @@
 #include "Redes_Neurais.h"
 
 
-int getParametroLinhaComando(int argc, char *argv[], int *parametro);
-void do_vetor_random(double *vetor, int semente);
-
-int getParametroLinhaComando(int argc, char *argv[], int *parametro){
-  if (argc == 1){
-    return 0;
-  }else{
-    *parametro = atoi(argv[1]);
-    return 1;
-}
-
 void random536(double *vetor, int semente){
   srand(time(NULL)+semente);
   for (int i=0; i<536; i++){
     *(vetor+i) = (rand() % 31999) - 16000;
+  }
+}
+
+void criacamada2(*parametro) {
+  camada2 = (Neuronio*)calloc(*parametro, sizeof (Neuronio));
+  saida2 = (double*)calloc(*parametro, sizeof (double));
+
+  if (camada2 = NULL) {
+    reutrn 0;
+  }
+  if (saida2 = NULL) {
+    reutrn 0;
+  }
+
+}
+double calculoSaida(double *p, double *w, double b){
+  double somatorio = 0;
+  double n, s;
+
+  for(int i=0; i<536; i++){
+    somatorio += (*(w+i)) * (*(p+i));
+  }
+  n = somatorio + b;
+  s = 1 / (1 + exp(-n));
+  return s;
 }
