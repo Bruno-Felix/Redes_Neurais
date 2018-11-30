@@ -294,25 +294,30 @@ void criarNeuronioSaida(int tamanho){
     double v = 0;
 }
 
-double *calculoEntrada(double **vetor, Neuronio **ponteiroPosicao){
+double *calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao){
 
+    Neuronio **auxN = malloc(536 * sizeof(Neuronio*));
+    *auxN = ponteiroPosicao;
+    
     double somatorio = 0;
     double aux = 0;
     int x = 0;
     
     double *vetorEntrada = (double *)malloc(536 * sizeof(double));
+    
 
-    for(int i=0; i<536; i++){
         for(int j=0; j<536;j++){
             
-            somatorio += (ponteiroPosicao[i]->w[j]) * (vetor[i][j]);
-            aux =  somatorio + ponteiroPosicao[i]->b;
-
-            ponteiroPosicao[i]->v = 1/(1 + exp(-aux));
-            vetorEntrada[i] = ponteiroPosicao[i]->v;
+            somatorio += (auxN[i]->w[j]) * (vetor[i][j]);
+            //printf("w: %lf\n", auxN[i]->w[j]);
+            aux =  somatorio + auxN[i]->b;
+            //printf("                        aux: %lf\n", aux);
+            auxN[i]->v = 1/(1 + exp(-aux));
+            //printf("v: %lf\n", auxN);
+            vetorEntrada[i] = auxN[i]->v;
+            
         }
-    }
-
+    
     return vetorEntrada;
 }
 

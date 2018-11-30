@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
     int Tamanho = 0;
     Tamanho = atoi(argv[1]);
 
-    double vetorEntrada[536];
+    int i=0;
     double vetorOculto[Tamanho];
     double vetorSaidas[50];
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
     Neuronio *ponteiroPosicaoOculto = criarCamadaOculta(Tamanho);
     Neuronio *ponteiroPosicaoEntrada = criarCamadaEntrada();
 
-
+    double *vetorEntrada = calculoEntrada(i, matrizTreinamento, ponteiroPosicaoEntrada);
 
 
     return 0;

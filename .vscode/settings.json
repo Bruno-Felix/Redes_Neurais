@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "stdbool.h": "c",
+        "stdlib.h": "c",
+        "redes_neurais.h": "c",
+        "stdio.h": "c",
+        "math.h": "c"
+    }
+}
