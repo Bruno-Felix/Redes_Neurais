@@ -21,7 +21,7 @@ Neuronio *criarCamadaOculta(int parametro);
 Neuronio *criarCamadaEntrada();
 void criaNeuronioSaida(int );
 
-double *calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao);
+double calculoEntrada(int i, double *vetor, Neuronio *ponteiroPosicao);
 double *calculoOculta(int i, double *vetorEntrada, Neuronio *ponteiroPosicao, int parametro);
 
 
