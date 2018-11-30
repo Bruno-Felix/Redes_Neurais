@@ -248,12 +248,9 @@ void criacamada2(*parametro) {
     }
 
 
-    printf("Primeira posicao: %d %d\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->w);
-    printf("Segunda posicao: %d %d\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->coluna);
+    printf("Primeira posicao: %d %d\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
+    printf("Segunda posicao: %d %d\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
 
-    free(ponteiroPosicao[0]);
-    free(ponteiroPosicao[1]);
-    free(ponteiroPosicao);
 }
 
 void liberacamada2(){
