@@ -15,13 +15,14 @@ int *criarVetorStatusTreinamento();
 int *criarVetorStatusTeste();
 
 double **criarMatrizTreinamento(int *VetorStatusTreinamento);
-double **criarMatrizTeste(int *criarVetorStatusTreinamento);
+double **criarMatrizTeste(int *VetorStatusTreinamento);
 
 Neuronio *criarCamadaOculta(int parametro);
 Neuronio *criarCamadaEntrada();
 void criaNeuronioSaida(int );
 
 double *calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao);
+double *calculoOculta(int i, double *vetorEntrada, Neuronio *ponteiroPosicao, int parametro);
 
 
 
