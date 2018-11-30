@@ -6,8 +6,15 @@
 #include "Redes_Neurais.h"
 
 
+
 //MAIN_____________________________________//
-int main(){
+int main(int argc, char *argv[]){
+
+  int Tamanho = 0;
+  Tamanho = atoi(argv[1]);
+
+
+    //printf("%d\n", Tamanho);
     //vetorStatus: 0 -> Asfalto | 1 -> Grama
     int *vetorStatusTreinamento = criarVetorStatusTreinamento();
     int *vetorStatusTeste = criarVetorStatusTeste();
@@ -16,8 +23,8 @@ int main(){
     double **matrizTreinamento = criarMatrizTreinamento(vetorStatusTreinamento);
     double **matrizTeste = criarMatrizTeste(vetorStatusTeste);
 
-    criarCamadaEntrada();
-
+    //criarCamadaEntrada();
+      criarCamadaOculta(Tamanho);
 
 
 

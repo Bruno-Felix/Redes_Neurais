@@ -232,24 +232,31 @@ double **criarMatrizTeste(int *criarVetorStatusTeste){
 }
 
 
-void criarCamadaOculta(int *parametro) {
+void criarCamadaOculta(int parametro) {
   Neuronio **ponteiroPosicao;
 
-    ponteiroPosicao = malloc(*parametro * sizeof(Neuronio*));
-    for (size_t i = 0; i < *parametro; i++) {
+    ponteiroPosicao = malloc(parametro * sizeof(Neuronio*));
+    for (int i = 0; i < parametro; i++) {
 
       ponteiroPosicao[i] = malloc(sizeof(Neuronio));
       ponteiroPosicao[i]->d = 0;
       ponteiroPosicao[i]->w[536];
+
+        //for(int j=0; j<536; j++){
+        //    printf("w%d - %d: %lf\n", i, j,  ponteiroPosicao[i]->w[j]);
+        //}
       ponteiroPosicao[i]->b = 0;
       ponteiroPosicao[i]->v = 0;
+
+
     }
 
 
-    printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
-    printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
+    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
+    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
 
 }
+
 
 /* void liberacamada2(int *parametro){
   for (size_t i = 0; i < *parametro; i++){
@@ -269,9 +276,9 @@ void criarCamadaEntrada(){
       ponteiroPosicao[i]->d = 0;
       ponteiroPosicao[i]->w[536];
 
-        for(int j=0; j<536; j++){
-            printf("w%d - %d: %lf\n", i, j,  ponteiroPosicao[i]->w[j]);
-        }
+      //for(int j=0; j<536; j++){
+      //      printf("w%d - %d: %lf\n", i, j,  ponteiroPosicao[i]->w[j]);
+      //  }
       ponteiroPosicao[i]->b = 0;
       ponteiroPosicao[i]->v = 0;
 
@@ -279,7 +286,7 @@ void criarCamadaEntrada(){
     }
 
 
-    printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
-    printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
+    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
+    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
 
 }

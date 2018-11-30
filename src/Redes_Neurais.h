@@ -10,7 +10,7 @@ int *criarVetorStatusTeste();
 double **criarMatrizTreinamento(int *VetorStatusTreinamento);
 double **criarMatrizTeste(int *criarVetorStatusTreinamento);
 
-void criarCamadaOculta(int *parametro);
+void criarCamadaOculta(int parametro);
 void criarCamadaEntrada();
 
 typedef struct neuronio{
