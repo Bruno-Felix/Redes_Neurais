@@ -16,7 +16,7 @@ int main(){
     double **matrizTreinamento = criarMatrizTreinamento(vetorStatusTreinamento);
     double **matrizTeste = criarMatrizTeste(vetorStatusTeste);
 
-    criacamadaEntrada();
+    criarCamadaEntrada();
 
 
 

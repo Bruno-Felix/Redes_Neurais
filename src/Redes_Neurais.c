@@ -232,52 +232,54 @@ double **criarMatrizTeste(int *criarVetorStatusTeste){
 }
 
 
-void criacamada2(*parametro) {
+void criarCamadaOculta(int *parametro) {
   Neuronio **ponteiroPosicao;
 
     ponteiroPosicao = malloc(*parametro * sizeof(Neuronio*));
     for (size_t i = 0; i < *parametro; i++) {
 
-      ponteiroPosicao[i] = malloc(sizeof(Neuronio))
+      ponteiroPosicao[i] = malloc(sizeof(Neuronio));
       ponteiroPosicao[i]->d = 0;
-      ponteiroPosicao[i]->w[536] = {0};
+      ponteiroPosicao[i]->w[536];
       ponteiroPosicao[i]->b = 0;
-      ponteiroPosicao[i]->v = 0
-
-
+      ponteiroPosicao[i]->v = 0;
     }
 
 
-    printf("Primeira posicao: %d %d\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
-    printf("Segunda posicao: %d %d\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
+    printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
+    printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
 
 }
 
-void liberacamada2(){
+/* void liberacamada2(int *parametro){
   for (size_t i = 0; i < *parametro; i++){
     free ponteiroPosicao[i];
   }
   free ponteiroPosicao;
-}
+} */
 
 
-void criacamadaEntrada() {
+void criarCamadaEntrada(){
   Neuronio **ponteiroPosicao;
 
     ponteiroPosicao = malloc(536 * sizeof(Neuronio*));
-    for (size_t i = 0; i < 536; i++) {
+    for (int i = 0; i < 536; i++) {
 
-      ponteiroPosicao[i] = malloc(sizeof(Neuronio))
+      ponteiroPosicao[i] = malloc(sizeof(Neuronio));
       ponteiroPosicao[i]->d = 0;
-      ponteiroPosicao[i]->w[536] = {0};
+      ponteiroPosicao[i]->w[536];
+
+        for(int j=0; j<536; j++){
+            printf("w%d - %d: %lf\n", i, j,  ponteiroPosicao[i]->w[j]);
+        }
       ponteiroPosicao[i]->b = 0;
-      ponteiroPosicao[i]->v = 0
+      ponteiroPosicao[i]->v = 0;
 
 
     }
 
 
-    printf("Primeira posicao: %d %d\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
-    printf("Segunda posicao: %d %d\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
+    printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
+    printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
 
 }
