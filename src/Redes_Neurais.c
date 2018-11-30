@@ -228,65 +228,98 @@ double **criarMatrizTeste(int *criarVetorStatusTeste){
         }
     }
 
+    /* for(int i=0; i<50; i++){
+        for(int j=0; j<536; j++){
+            printf("teste[%d]: %lf\n", i, matrizTeste[i][j]);
+        }
+    } */
+
     return matrizTeste;
 }
 
 
-void criarCamadaOculta(int parametro) {
-  Neuronio **ponteiroPosicao;
-
-    ponteiroPosicao = malloc(parametro * sizeof(Neuronio*));
+Neuronio *criarCamadaOculta(int parametro) {
+  
+    Neuronio **ponteiroPosicaoOculto;
+    ponteiroPosicaoOculto = malloc(parametro * sizeof(Neuronio*));
+    
     for (int i = 0; i < parametro; i++) {
 
-      ponteiroPosicao[i] = malloc(sizeof(Neuronio));
-      ponteiroPosicao[i]->d = 0;
-      ponteiroPosicao[i]->w[536];
+        ponteiroPosicaoOculto[i] = malloc(sizeof(Neuronio));
+        ponteiroPosicaoOculto[i]->d = 0;
+        ponteiroPosicaoOculto[i]->w[536];
 
         //for(int j=0; j<536; j++){
-        //    printf("w%d - %d: %lf\n", i, j,  ponteiroPosicao[i]->w[j]);
+        //    printf("w%d - %d: %lf\n", i, j,  ponteiroPosicaoOculto[i]->w[j]);
         //}
-      ponteiroPosicao[i]->b = 0;
-      ponteiroPosicao[i]->v = 0;
-
-
+        ponteiroPosicaoOculto[i]->b = 0;
+        ponteiroPosicaoOculto[i]->v = 0;
     }
 
+    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicaoOculto[0]->d, ponteiroPosicaoOculto[0]->b);
+    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicaoOculto[1]->d, ponteiroPosicaoOculto[1]->b);
 
-    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
-    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
+    return *ponteiroPosicaoOculto;
+}
 
+
+Neuronio *criarCamadaEntrada(){
+    
+    Neuronio **ponteiroPosicaoEntrada;
+    ponteiroPosicaoEntrada = malloc(536 * sizeof(Neuronio*));
+    
+    for (int i = 0; i < 536; i++) {
+
+      ponteiroPosicaoEntrada[i] = malloc(sizeof(Neuronio));
+      ponteiroPosicaoEntrada[i]->d = 0;
+      ponteiroPosicaoEntrada[i]->w[536];
+
+      //for(int j=0; j<536; j++){
+      //      printf("w%d - %d: %lf\n", i, j,  ponteiroPosicaoEntrada[i]->w[j]);
+      //  }
+      ponteiroPosicaoEntrada[i]->b = 0;
+      ponteiroPosicaoEntrada[i]->v = 0;
+    }
+
+    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicaoEntrada[0]->d, ponteiroPosicaoEntrada[0]->b);
+    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicaoEntrada[1]->d, ponteiroPosicaoEntrada[1]->b);
+
+    return *ponteiroPosicaoEntrada;
+}
+
+void criarNeuronioSaida(int tamanho){
+    double d = 0;
+    double w[tamanho];
+    double b = 0;
+    double v = 0;
+}
+
+double *calculoEntrada(double **vetor, Neuronio **ponteiroPosicao){
+
+    double somatorio = 0;
+    double aux = 0;
+    int x = 0;
+    
+    double *vetorEntrada = (double *)malloc(536 * sizeof(double));
+
+    for(int i=0; i<536; i++){
+        for(int j=0; j<536;j++){
+            
+            somatorio += (ponteiroPosicao[i]->w[j]) * (vetor[i][j]);
+            aux =  somatorio + ponteiroPosicao[i]->b;
+
+            ponteiroPosicao[i]->v = 1/(1 + exp(-aux));
+            vetorEntrada[i] = ponteiroPosicao[i]->v;
+        }
+    }
+
+    return vetorEntrada;
 }
 
 
 /* void liberacamada2(int *parametro){
   for (size_t i = 0; i < *parametro; i++){
-    free ponteiroPosicao[i];
+    free ponteiroPosicaoOculto[i];
   }
-  free ponteiroPosicao;
+  free ponteiroPosicaoOculto;
 } */
-
-
-void criarCamadaEntrada(){
-  Neuronio **ponteiroPosicao;
-
-    ponteiroPosicao = malloc(536 * sizeof(Neuronio*));
-    for (int i = 0; i < 536; i++) {
-
-      ponteiroPosicao[i] = malloc(sizeof(Neuronio));
-      ponteiroPosicao[i]->d = 0;
-      ponteiroPosicao[i]->w[536];
-
-      //for(int j=0; j<536; j++){
-      //      printf("w%d - %d: %lf\n", i, j,  ponteiroPosicao[i]->w[j]);
-      //  }
-      ponteiroPosicao[i]->b = 0;
-      ponteiroPosicao[i]->v = 0;
-
-
-    }
-
-
-    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
-    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
-
-}

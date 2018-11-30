@@ -1,6 +1,13 @@
 #ifndef REDES_NEURAIS_H
 #define REDES_NEURAIS_H
 
+typedef struct neuronio{
+    double d; //Gradiente
+    double w[536]; //Núcleo
+    double b; //vies
+    double v; //Saida
+}Neuronio;
+
 double **leituraVetorGrama();
 double **leituraVetorAsfalto();
 
@@ -10,15 +17,11 @@ int *criarVetorStatusTeste();
 double **criarMatrizTreinamento(int *VetorStatusTreinamento);
 double **criarMatrizTeste(int *criarVetorStatusTreinamento);
 
-void criarCamadaOculta(int parametro);
-void criarCamadaEntrada();
+Neuronio *criarCamadaOculta(int parametro);
+Neuronio *criarCamadaEntrada();
+void criaNeuronioSaida(int );
 
-typedef struct neuronio{
-    double d; //Gradiente
-    double w[536]; //Núcleo
-    double b; //vies
-    double v; //Saida
-}Neuronio;
+double *calculoEntrada(double **vetor, Neuronio **ponteiroPosicao);
 
 
 
