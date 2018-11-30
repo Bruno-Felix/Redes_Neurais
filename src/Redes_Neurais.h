@@ -10,7 +10,8 @@ int *criarVetorStatusTeste();
 double **criarMatrizTreinamento(int *VetorStatusTreinamento);
 double **criarMatrizTeste(int *criarVetorStatusTreinamento);
 
-void criacamada2(*parametro);
+void criacamada2(int *parametro);
+void criacamadaEntrada();
 
 typedef struct neuronio{
     double d; //Gradiente
@@ -18,8 +19,8 @@ typedef struct neuronio{
     double b; //vies
     double v; //Saida
 }Neuronio;
-Neuronio camada1[536]
-double saida1[536]
+
+
 
 
 #endif

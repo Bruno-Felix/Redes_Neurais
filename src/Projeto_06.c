@@ -15,8 +15,9 @@ int main(){
     //matriz: vetor[536] de cada imagem de treinamento ou teste
     double **matrizTreinamento = criarMatrizTreinamento(vetorStatusTreinamento);
     double **matrizTeste = criarMatrizTeste(vetorStatusTeste);
-    
-    
+
+    criacamadaEntrada();
+
 
 
 

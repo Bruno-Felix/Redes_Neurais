@@ -259,3 +259,25 @@ void liberacamada2(){
   }
   free ponteiroPosicao;
 }
+
+
+void criacamadaEntrada() {
+  Neuronio **ponteiroPosicao;
+
+    ponteiroPosicao = malloc(536 * sizeof(Neuronio*));
+    for (size_t i = 0; i < 536; i++) {
+
+      ponteiroPosicao[i] = malloc(sizeof(Neuronio))
+      ponteiroPosicao[i]->d = 0;
+      ponteiroPosicao[i]->w[536] = {0};
+      ponteiroPosicao[i]->b = 0;
+      ponteiroPosicao[i]->v = 0
+
+
+    }
+
+
+    printf("Primeira posicao: %d %d\n", ponteiroPosicao[0]->d, ponteiroPosicao[0]->b);
+    printf("Segunda posicao: %d %d\n", ponteiroPosicao[1]->d, ponteiroPosicao[1]->b);
+
+}
