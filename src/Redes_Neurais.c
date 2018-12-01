@@ -247,27 +247,19 @@ Neuronio *criarCamadaOculta(int parametro) {
 
         ponteiroPosicaoOculto[i] = malloc(sizeof(Neuronio));
         ponteiroPosicaoOculto[i]->d = 0;
+
         for (size_t j = 0; j < 536; j++) {
           double aux;
 
-          ponteiroPosicaoOculto[i]->w[j] = (double *)malloc(sizeof(double));
-          ponteiroPosicaoOculto[i]->w[j] = (rand() % 31999) - 16000;
           //printf("aux: %lf\n", ponteiroPosicaoOculto[i]->w[j]);
         }
 
-        //for(int j=0; j<536; j++){
-        //    printf("w%d - %d: %lf\n", i, j,  ponteiroPosicaoOculto[i]->w[j]);
-        //}
-
-          double aux2;
-          aux2 = (rand() % 31999) - 16000;
+        double aux2;
+        aux2 = (rand() % 31999) - 16000;
         ponteiroPosicaoOculto[i]->b = aux2;
-      //  printf("aux2: %lf\n", ponteiroPosicaoOculto[i]->b);
+        //  printf("aux2: %lf\n", ponteiroPosicaoOculto[i]->b);
         ponteiroPosicaoOculto[i]->v = 0;
     }
-
-    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicaoOculto[0]->d, ponteiroPosicaoOculto[0]->b);
-    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicaoOculto[1]->d, ponteiroPosicaoOculto[1]->b);
 
     return *ponteiroPosicaoOculto;
 }
@@ -280,31 +272,55 @@ Neuronio *criarCamadaEntrada(){
 
     for (int i = 0; i < 536; i++) {
 
-      ponteiroPosicaoEntrada[i] = malloc(sizeof(Neuronio));
-      ponteiroPosicaoEntrada[i]->d = 0;
-      for (size_t j = 0; j < 536; j++) {
+        ponteiroPosicaoEntrada[i] = malloc(sizeof(Neuronio));
+        ponteiroPosicaoEntrada[i]->d = 0;
+
         double aux;
-
-        ponteiroPosicaoEntrada[i]->w[j] = (double *)malloc(sizeof(double));
-        ponteiroPosicaoEntrada[i]->w[j] = (rand() % 31999) - 16000;
-        //printf("aux: %lf\n", ponteiroPosicaoEntrada[i]->w[j]);
-      }
-
-      //for(int j=0; j<536; j++){
-      //    printf("w%d - %d: %lf\n", i, j,  ponteiroPosicaoEntrada[i]->w[j]);
-      //}
-
-        double aux2;
-        aux2 = (rand() % 31999) - 16000;
-      ponteiroPosicaoEntrada[i]->b = aux2;
-      //printf("aux2: %lf\n", ponteiroPosicaoEntrada[i]->b);
-      ponteiroPosicaoEntrada[i]->v = 0;
+        aux = (rand() % 31999) - 16000;
+        ponteiroPosicaoEntrada[i]->b = aux;
+        ponteiroPosicaoEntrada[i]->v = 0;
     }
 
-    //printf("Primeira posicao: %lf %lf\n", ponteiroPosicaoEntrada[0]->d, ponteiroPosicaoEntrada[0]->b);
-    //printf("Segunda posicao: %lf %lf\n", ponteiroPosicaoEntrada[1]->d, ponteiroPosicaoEntrada[1]->b);
-
     return *ponteiroPosicaoEntrada;
+}
+
+double **criarMatriz_W_Entrada(){
+    //double **matrizTeste = (double **)malloc(50*sizeof(double));
+    double  **matriz_W_Entrada = (double **)malloc(536*sizeof(double));
+    
+    for(int i=0; i<536; i++){
+
+        //matrizTeste[i] = (double *)malloc(536*sizeof(double));
+        matriz_W_Entrada[i] = (double *)malloc(536*sizeof(double));
+        
+        for(int j=0; j<536; j++){
+            double aux;
+            aux = (rand() % 31999) - 16000;
+
+            matriz_W_Entrada[i][j] = aux;
+        }
+    }
+
+    return matriz_W_Entrada;
+}
+
+double **criarMatriz_W_Oculto(int parametro){
+    //double **matrizTeste = (double **)malloc(50*sizeof(double));
+    double  **matriz_W_Oculto = (double **)malloc(parametro*sizeof(double));
+    
+    for(int i=0; i<parametro; i++){
+
+        matriz_W_Oculto[i] = (double *)malloc(536*sizeof(double));
+        
+        for(int j=0; j<536; j++){
+            double aux;
+            aux = (rand() % 31999) - 16000;
+
+            matriz_W_Oculto[i][j] = aux;
+        }
+    }
+
+    return matriz_W_Oculto;
 }
 
 void criarNeuronioSaida(int tamanho){
@@ -327,9 +343,7 @@ double calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao){
         printf("for\n");
         
         printf("vetor[i][j] %lf\n", vetor[i][j]);
-        printf("ponteiroPosicao[i]->w[j] %lf\n", ponteiroPosicao[i].w[j]);
         //somatorio += (ponteiroPosicao[i].w[j]) * (vetor[i][j]);
-        printf("w: %lf\n", ponteiroPosicao[i].w[j]);
     }
 
     aux =  somatorio + ponteiroPosicao[i].b;
