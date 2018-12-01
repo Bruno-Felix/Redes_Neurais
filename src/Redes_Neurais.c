@@ -437,7 +437,12 @@ double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreina
         vetorVOculto[i] = calculoOculta(k, i, vetorVEntrada, ponteiroPosicaoOculto, vetorOcultoW, parametro);
     }
 
-        S = calculoSaida(vetorVOculto, ponteiroPosicaoSaida, vetorSaidaW, parametro);
+    S = calculoSaida(vetorVOculto, ponteiroPosicaoSaida, vetorSaidaW, parametro);
 
-      return S;
+    return S;
+}
+
+
+void backpropagacaion(){
+    
 }

@@ -38,5 +38,12 @@ double calculoSaida(double *vetor, NeuronioS *ponteiroPosicao ,  double *vetor_W
 double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreinamento, Neuronio *ponteiroPosicaoEntrada, Neuronio *ponteiroPosicaoOculto, double **vetorEntradaW, double **vetorOcultoW, int parametro, NeuronioS *ponteiroPosicaoSaida, double *vetor_W_Saida);
 
 
+void backpropagacaion();
+NeuronioS calulaGradienteSaída();
+Neuronio calulaGradiente();
+double atualizaWEntrada(double **matrizW);
+double atualizaWOculto(double **matrizW);
+Neuronio atualizaB();
+
 
 #endif
