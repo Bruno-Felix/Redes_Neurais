@@ -28,8 +28,12 @@ int main(int argc, char *argv[]){
     Neuronio *ponteiroPosicaoEntrada = criarCamadaEntrada();
     Neuronio *ponteiroPosicaoOculto = criarCamadaOculta(Tamanho);
 
-    double *vetorEntrada = calculoEntrada(i, matrizTreinamento, ponteiroPosicaoEntrada);
-    double *vetorOculto = calculoOculta(i, vetorEntrada, ponteiroPosicaoOculto, Tamanho);
+    double *vetorEntrada = (double *)malloc(536*sizeof(double));
+
+    for(int i=0; i<536; i++){
+        vetorEntrada[i] = calculoEntrada(i, matrizTreinamento, ponteiroPosicaoEntrada);
+    }
+    //double *vetorOculto = calculoOculta(i, vetorEntrada, ponteiroPosicaoOculto, Tamanho);
 
     return 0;
 }

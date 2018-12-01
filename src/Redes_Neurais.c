@@ -250,9 +250,8 @@ Neuronio *criarCamadaOculta(int parametro) {
         for (size_t j = 0; j < 536; j++) {
           double aux;
 
-          aux = (rand() % 31999) - 16000;
-
-          ponteiroPosicaoOculto[i]->w[j] = aux;
+          ponteiroPosicaoOculto[i]->w[j] = (double *)malloc(sizeof(double));
+          ponteiroPosicaoOculto[i]->w[j] = (rand() % 31999) - 16000;
           //printf("aux: %lf\n", ponteiroPosicaoOculto[i]->w[j]);
         }
 
@@ -286,9 +285,8 @@ Neuronio *criarCamadaEntrada(){
       for (size_t j = 0; j < 536; j++) {
         double aux;
 
-        aux = (rand() % 31999) - 16000;
-
-        ponteiroPosicaoEntrada[i]->w[j] = aux;
+        ponteiroPosicaoEntrada[i]->w[j] = (double *)malloc(sizeof(double));
+        ponteiroPosicaoEntrada[i]->w[j] = (rand() % 31999) - 16000;
         //printf("aux: %lf\n", ponteiroPosicaoEntrada[i]->w[j]);
       }
 
@@ -316,58 +314,32 @@ void criarNeuronioSaida(int tamanho){
     double v = 0;
 }
 
-double *calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao){
-
-    Neuronio **auxN = malloc(536 * sizeof(Neuronio*));
-    *auxN = ponteiroPosicao;
+double calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao){
+    printf("ENTROU: %d\n", i);
 
     double somatorio = 0;
     double aux = 0;
-    int x = 0;
 
-    double *vetorEntrada = (double *)malloc(536 * sizeof(double));
+    double vetorEntrada;
 
 
-        for(int j=0; j<536;j++){
+    for(int j=0; j<536;j++){
+        printf("for\n");
+        
+        printf("vetor[i][j] %lf\n", vetor[i][j]);
+        printf("ponteiroPosicao[i]->w[j] %lf\n", ponteiroPosicao[i].w[j]);
+        //somatorio += (ponteiroPosicao[i].w[j]) * (vetor[i][j]);
+        printf("w: %lf\n", ponteiroPosicao[i].w[j]);
+    }
 
-            somatorio += (auxN[i]->w[j]) * (vetor[i][j]);
-            //printf("w: %lf\n", auxN[i]->w[j]);
-            aux =  somatorio + auxN[i]->b;
-            //printf("                        aux: %lf\n", aux);
-            auxN[i]->v = 1/(1 + exp(-aux));
-            vetorEntrada[i] = auxN[i]->v;
-            //printf("v: %lf\n", auxN[i]->v);
+    aux =  somatorio + ponteiroPosicao[i].b;
+    printf("                        aux: %lf\n", aux);
+    ponteiroPosicao[i].v = 1/(1 + exp(-aux));
 
-        }
+    vetorEntrada = ponteiroPosicao[i].v;
+    printf("v: %lf\n", ponteiroPosicao[i].v);
 
     return vetorEntrada;
-}
-
-double *calculoOculta(int i, double *vetorEntrada, Neuronio *ponteiroPosicao, int parametro){
-
-    Neuronio **auxN = malloc(parametro * sizeof(Neuronio*));
-    *auxN = ponteiroPosicao;
-
-    double somatorio = 0;
-    double aux = 0;
-    int x = 0;
-
-    double *vetorOculto = (double *)malloc(parametro * sizeof(double));
-
-
-        for(int j=0; j<536;j++){
-
-            somatorio += (auxN[i]->w[j]) * (vetorEntrada[j]);
-            //printf("w: %lf\n", auxN[i]->w[j]);
-            aux =  somatorio + auxN[i]->b;
-          //  printf("                        aux: %lf\n", aux);
-            auxN[i]->v = 1/(1 + exp(-aux));
-            vetorOculto[i] = auxN[i]->v;
-          //  printf("v: %lf\n", auxN[i]->v);
-
-        }
-
-    return vetorOculto;
 }
 
 

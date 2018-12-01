@@ -3,7 +3,7 @@
 
 typedef struct neuronio{
     double d; //Gradiente
-    double w[536]; //Núcleo
+    double *w[536]; //Núcleo
     double b; //vies
     double v; //Saida
 }Neuronio;
@@ -21,8 +21,8 @@ Neuronio *criarCamadaOculta(int parametro);
 Neuronio *criarCamadaEntrada();
 void criaNeuronioSaida(int );
 
-double *calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao);
-double *calculoOculta(int i, double *vetorEntrada, Neuronio *ponteiroPosicao, int parametro);
+double calculoEntrada(int i, double **vetor, Neuronio *ponteiroPosicao);
+double *calculoOculta(int i, double *vetorEntrada, Neuronio **ponteiroPosicao, int parametro);
 
 
 
