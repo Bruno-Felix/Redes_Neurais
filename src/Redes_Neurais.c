@@ -283,7 +283,7 @@ Neuronio *criarCamadaEntrada(){
         aux = (rand() % 31999) - 16000;
         ponteiroPosicaoEntrada[i]->b = aux;
         ponteiroPosicaoEntrada[i]->v = 0;
- 
+
     }
 
     return *ponteiroPosicaoEntrada;
@@ -293,13 +293,13 @@ Neuronio *criarCamadaEntrada(){
 double **criarMatriz_W_Entrada(){
     //double **matrizTeste = (double **)malloc(50*sizeof(double));
     double  **matriz_W_Entrada = (double **)malloc(536*sizeof(double));
-    
+
     for(int i=0; i<536; i++){
 
 
         //matrizTeste[i] = (double *)malloc(536*sizeof(double));
         matriz_W_Entrada[i] = (double *)malloc(536*sizeof(double));
-        
+
         for(int j=0; j<536; j++){
             double aux;
             aux = (rand() % 31999) - 16000;
@@ -314,11 +314,11 @@ double **criarMatriz_W_Entrada(){
 double **criarMatriz_W_Oculto(int parametro){
     //double **matrizTeste = (double **)malloc(50*sizeof(double));
     double  **matriz_W_Oculto = (double **)malloc(parametro*sizeof(double));
-    
+
     for(int i=0; i<parametro; i++){
 
         matriz_W_Oculto[i] = (double *)malloc(536*sizeof(double));
-        
+
         for(int j=0; j<536; j++){
             double aux;
             aux = (rand() % 31999) - 16000;
@@ -331,11 +331,32 @@ double **criarMatriz_W_Oculto(int parametro){
 
 }
 
-void criarNeuronioSaida(int tamanho){
-    double d = 0;
-    double w[tamanho];
-    double b = 0;
-    double v = 0;
+NeuronioS *criarNeuronioSaida(int parametro){
+  NeuronioS *ponteiroPosicaoSaida;
+  ponteiroPosicaoSaida = malloc(sizeof(NeuronioS*));
+
+
+  ponteiroPosicaoSaida->d = 0;
+
+  double aux;
+  aux = (rand() % 31999) - 16000;
+  ponteiroPosicaoSaida->b = aux;
+  ponteiroPosicaoSaida->v = 0;
+
+  return ponteiroPosicaoSaida;
+}
+
+double *Cria_W_saida(int parametro){
+  double  *vetor_W_Saida = (double *)malloc(parametro*sizeof(double));
+  int i = 0;
+
+  for (i = 0; i < parametro; i++) {
+    double aux;
+    aux = (rand() % 31999) - 16000;
+
+    vetor_W_Saida[i] = aux;
+  }
+  return vetor_W_Saida;
 }
 
 double calculoEntrada(int k, int i, double **matriz, Neuronio *ponteiroPosicao, double **vetorEntradaW){
@@ -344,7 +365,7 @@ double calculoEntrada(int k, int i, double **matriz, Neuronio *ponteiroPosicao, 
     double aux = 0;
 
     double v;
-    printf("i: %d\n\n", i);
+    //printf("i: %d\n\n", i);
     for(int j=0; j<536;j++){
         //printf("                            vetorEntradaW: %lf\n", vetorEntradaW[i][j]);
         //printf("matriz %lf\n", matriz[i][j]);
@@ -353,11 +374,11 @@ double calculoEntrada(int k, int i, double **matriz, Neuronio *ponteiroPosicao, 
 
     aux =  somatorio + ponteiroPosicao[i].b;
     ponteiroPosicao[i].v = 1/(1 + exp(-aux));
-    
+
     v = ponteiroPosicao[i].v;
     //printf("%lf\n", v);
 
-   
+
 }
 
 double calculoOculta(int k, int i, double *vetor, Neuronio *ponteiroPosicao, double **vetorOcultoW, int parametro){
@@ -370,29 +391,53 @@ double calculoOculta(int k, int i, double *vetor, Neuronio *ponteiroPosicao, dou
     for(int j=0; j<parametro;j++){
         //printf("                            vetorEntradaW: %lf\n", vetorEntradaW[i][j]);
         //printf("matriz %lf\n", matriz[i][j]);
-        somatorio += vetorOcultoW[i][j] * (matriz[k][j]);
+        somatorio += vetorOcultoW[i][j] * (vetor[j]);
     }
 
     aux =  somatorio + ponteiroPosicao[i].b;
     ponteiroPosicao[i].v = 1/(1 + exp(-aux));
 
     v = ponteiroPosicao[i].v;
-    
+
     return v;
 }
 
-double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreinamento, Neuronio *ponteiroPosicaoEntrada, Neuronio *ponteiroPosicaoOculto, double **vetorEntradaW, double **vetorOcultoW, int parametro){
+double calculoSaida(double *vetor,NeuronioS *ponteiroPosicao ,  double *vetor_W_Saida, int parametro ){
+
+  double somatorio = 0;
+  double aux = 0;
+
+  double v;
+
+  for (int j = 0; j < parametro; j++) {
+  somatorio += vetor_W_Saida[j] * (vetor[j]);
+
+
+  }
+  aux = somatorio + ponteiroPosicao->b;
+  ponteiroPosicao->v = 1/(1 + exp(-aux));
+
+  v = ponteiroPosicao->v;
+
+  return v;
+}
+
+double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreinamento, Neuronio *ponteiroPosicaoEntrada, Neuronio *ponteiroPosicaoOculto, double **vetorEntradaW, double **vetorOcultoW, int parametro, NeuronioS *ponteiroPosicaoSaida, double *vetorSaidaW){
 
 
     double vetorVEntrada[536];
     double vetorVOculto[parametro];
+    double S;
 
     for(int i=0; i<536; i++){
         vetorVEntrada[i] = calculoEntrada(k, i, matrizTreinamento, ponteiroPosicaoEntrada, vetorEntradaW);
     }
 
     for(int i; i<parametro; i++){
-        vetorVOculto[i] = calculoOculta(k, i, vetorVEntrada, ponteiroPosicaoOculto, vetorOcultoW);
+        vetorVOculto[i] = calculoOculta(k, i, vetorVEntrada, ponteiroPosicaoOculto, vetorOcultoW, parametro);
     }
 
+        S = calculoSaida(vetorVOculto, ponteiroPosicaoSaida, vetorSaidaW, parametro);
+
+      return S;
 }

@@ -30,22 +30,29 @@ int main(int argc, char *argv[]){
 
     Neuronio *ponteiroPosicaoEntrada = criarCamadaEntrada();
     Neuronio *ponteiroPosicaoOculto = criarCamadaOculta(Tamanho);
+    NeuronioS *ponteiroPosicaoSaida = criarNeuronioSaida(Tamanho);
 
     double **vetorEntradaW = criarMatriz_W_Entrada();
     double **vetorOcultoW = criarMatriz_W_Oculto(Tamanho);
+    double *vetorSaidaW = Cria_W_saida(Tamanho);
 
     int count = 0;
     double erroQuadratico = 1;
-    while(count != 1000 || erroQuadratico <= 0.2){
+    while(count != 5 && erroQuadratico >= 0.2){
+      double vetorS [50];
+      double somatorio = 0;
+
 
         for(int k=0; k<50; k++){
-            calculaGeracao(k, i, matrizTeste,  matrizTreinamento,  ponteiroPosicaoEntrada,  ponteiroPosicaoOculto,  vetorEntradaW,  vetorOcultoW,  Tamanho);
-
-
+          vetorS[k] =  calculaGeracao(k, i, matrizTeste,  matrizTreinamento,  ponteiroPosicaoEntrada,  ponteiroPosicaoOculto,  vetorEntradaW,  vetorOcultoW,  Tamanho, ponteiroPosicaoSaida, vetorSaidaW);
+          printf("vetorS: %lf\n", vetorS[k]);
         }
-
-
-
+        for (size_t h = 0; h < 50; h++) {
+          somatorio += pow(vetorS[h], 2);
+          //printf("somatorio: %lf\n", somatorio);
+      }
+      erroQuadratico = somatorio / 50;
+      //printf("erroquadrado: %lf\n", erroQuadratico);
         count++;
     }
 
