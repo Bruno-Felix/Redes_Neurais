@@ -38,12 +38,16 @@ double calculoSaida(double *vetor, NeuronioS *ponteiroPosicao ,  double *vetor_W
 double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreinamento, Neuronio *ponteiroPosicaoEntrada, Neuronio *ponteiroPosicaoOculto, double **vetorEntradaW, double **vetorOcultoW, int parametro, NeuronioS *ponteiroPosicaoSaida, double *vetor_W_Saida);
 
 
-void backpropagacaion();
-NeuronioS calulaGradienteSaída();
-Neuronio calulaGradiente();
-double atualizaWEntrada(double **matrizW);
-double atualizaWOculto(double **matrizW);
-Neuronio atualizaB();
+void backpropagacaion(double **matrizTreinamento, double **matriz_W_Entrada, Neuronio *ponteiroPosicaoEntrada, double **matriz_W_Oculto, int parametro, double *vetor_W_Saida, Neuronio *ponteiroPosicaoOculto, double erro, double saida, NeuronioS *ponteiroPosicaoSaida, int k);
+void calculaGradienteSaida(double erro, double saida, NeuronioS *ponteiroPosicaoSaida);
+void calculaGradienteOculta(Neuronio *ponteiroPosicaoOculto,  NeuronioS *ponteiroPosicaoSaida, double *vetor_W_Saida, int parametro);
+void calculoGradienteEntrada(Neuronio *ponteiroPosicaoOculto, double **matriz_W_Oculto, Neuronio *ponteiroPosicaoEntrada, int parametro);
+void atualizaWEntrada(double **matriz_W_Entrada, double **matrizTreinamento, int k, Neuronio *ponteiroPosicaoEntrada);
+void atualizaWOculto(int parametro, double **matriz_W_Oculto, Neuronio *ponteiroPosicaoEntrada);
+void atualizaWSaida(int parametro, double * vetor_W_Saida, Neuronio *ponteiroPosicaoOculto, NeuronioS *ponteiroPosicaoSaida);
+void atualizaBEntrada(Neuronio *ponteiroPosicaoEntrada);
+void atualizaBOculto(Neuronio *ponteiroPosicaoOculto, int parametro);
+void atualizaBSaida(NeuronioS *ponteiroPosicaoSaida);
 
 
 #endif

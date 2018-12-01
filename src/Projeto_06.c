@@ -17,16 +17,9 @@ int main(int argc, char *argv[]){
     double vetorSaidas[50];
     double *vetorEntrada = (double *)malloc(536 * sizeof(double));
 
-
-
-    //printf("%d\n", Tamanho);
     //vetorStatus: 0 -> Asfalto | 1 -> Grama
     int *vetorStatusTreinamento = criarVetorStatusTreinamento();
     int *vetorStatusTeste = criarVetorStatusTeste();
-
-    for(int i=0; i<50;i++){
-        //printf("%d\n", vetorStatusTreinamento[i]);
-    }
 
     //matriz: vetor[536] de cada imagem de treinamento ou teste
     double **matrizTreinamento = criarMatrizTreinamento(vetorStatusTreinamento);
@@ -42,40 +35,42 @@ int main(int argc, char *argv[]){
 
     int count = 0;
     double erroQuadratico = 1;
+    double vetorStatusTesteD[50];
 
 
     //--------------------------------
     //      MUDAR PARA 1000
     //--------------------------------
-    while(count != 5 && erroQuadratico >= 0.2){
+    while(count != 10 && erroQuadratico >= 0.2){
       double vetorS [50];
       double erro[50];
       double somatorio = 0;
       double vetorStatusTreinamentoD[50];
 
 
+
     for(int k=0; k<50; k++){
         vetorStatusTreinamentoD[k] = (double)vetorStatusTreinamento[k];
-        //printf("vetorStatusTreinamentoD: %lf - - -", vetorStatusTreinamentoD[k]);
+        
         vetorS[k] =  calculaGeracao(k, i, matrizTeste,  matrizTreinamento,  ponteiroPosicaoEntrada,  ponteiroPosicaoOculto,  vetorEntradaW,  vetorOcultoW,  Tamanho, ponteiroPosicaoSaida, vetorSaidaW);
-        //printf("vetorS: %lf - - -", vetorS[k]);
+        printf("Saida Geracao[%d][%d]: %lf\n", count, k, vetorS[k]);
         
         erro[k] = vetorStatusTreinamentoD[k] - vetorS[k];
         if(vetorS[k] > vetorStatusTreinamentoD[k]){
             erro[k] = erro[k] * -1;
         }
-        //printf("erro %lf\n", erro[k]);
-
-        backpropagacaion();
+        
+        backpropagacaion(matrizTreinamento, vetorEntradaW, ponteiroPosicaoEntrada, vetorOcultoW, Tamanho, vetorSaidaW, ponteiroPosicaoOculto, erro[k], vetorS[k], ponteiroPosicaoSaida, k);
+           
     }
 
     for (size_t h = 0; h < 50; h++) {
         somatorio += pow(erro[h], 2);
-        printf("somatorio: %lf\n", somatorio);
+        //printf("somatorio: %lf\n", somatorio);
     }
 
     erroQuadratico = somatorio / 50;
-    printf("erroquadrado: %lf\n", erroQuadratico);
+    printf("-----------------------------------------------------\n                Erro Quadrado: %lf\n", erroQuadratico);
     
     count++;
     }

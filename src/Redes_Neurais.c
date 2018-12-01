@@ -443,6 +443,99 @@ double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreina
 }
 
 
-void backpropagacaion(){
+void backpropagacaion(double **matrizTreinamento, double **matriz_W_Entrada, Neuronio *ponteiroPosicaoEntrada, double **matriz_W_Oculto, int parametro, double *vetor_W_Saida, Neuronio *ponteiroPosicaoOculto, double erro, double saida, NeuronioS *ponteiroPosicaoSaida, int k){
     
+    calculaGradienteSaida(erro, saida, ponteiroPosicaoSaida);
+    calculaGradienteOculta(ponteiroPosicaoOculto, ponteiroPosicaoSaida, vetor_W_Saida, parametro);
+    //calculoGradienteEntrada(ponteiroPosicaoOculto, matriz_W_Oculto, ponteiroPosicaoEntrada, parametro);
+    atualizaWEntrada(matriz_W_Entrada, matrizTreinamento, k, ponteiroPosicaoEntrada);
+    atualizaWOculto(parametro, matriz_W_Oculto, ponteiroPosicaoEntrada);
+    atualizaWSaida(parametro, vetor_W_Saida, ponteiroPosicaoOculto, ponteiroPosicaoSaida);
+    atualizaBEntrada(ponteiroPosicaoEntrada);
+    atualizaBOculto(ponteiroPosicaoOculto, parametro);
+    atualizaBSaida(ponteiroPosicaoSaida);
+}
+
+void calculaGradienteSaida(double erro, double saida, NeuronioS *ponteiroPosicaoSaida){
+
+    double aux1 = exp(-saida);
+    double aux2 = 1+exp(-saida);
+    double novoGradiente = (aux1/pow(aux2, 2)) * erro;
+
+    ponteiroPosicaoSaida->d = novoGradiente;
+    //printf("ponteiroPosicaoSaida: %lf\n", ponteiroPosicaoSaida->d);
+}
+
+void calculaGradienteOculta(Neuronio *ponteiroPosicaoOculto,  NeuronioS *ponteiroPosicaoSaida, double *vetor_W_Saida, int parametro){
+
+    for(int i=0; i<parametro; i++){
+        
+        double saida = ponteiroPosicaoOculto->v;
+
+        double aux1 = exp(-saida);
+        double aux2 = 1+exp(-saida);
+        double somantorio = ponteiroPosicaoSaida->d * vetor_W_Saida[i]; 
+        double novoGradiente = (aux1/pow(aux2, 2)) * somantorio;
+
+        ponteiroPosicaoOculto[i].d = novoGradiente;
+    }
+}
+
+void calculoGradienteEntrada(Neuronio *ponteiroPosicaoOculto, double **matriz_W_Oculto, Neuronio *ponteiroPosicaoEntrada, int parametro){
+    
+    double somatorio;
+
+    double aux1;
+    double aux2;
+    for(int i=0;i<536; i++){
+        
+        for(int j=0;j<parametro; j++){
+            somatorio = ponteiroPosicaoOculto[j].d * matriz_W_Oculto[j][i];
+        }
+        double novoGradiente = (aux1/pow(aux2, 2)) * somatorio;
+        ponteiroPosicaoOculto[i].d = novoGradiente;
+    }
+}
+void atualizaWEntrada(double **matriz_W_Entrada, double **matrizTreinamento, int k, Neuronio *ponteiroPosicaoEntrada){
+
+    for(int i=0; i<536; i++){
+        for(int j=0; j<536; j++){
+            matriz_W_Entrada[i][j] = matriz_W_Entrada[i][j] + matrizTreinamento[k][j] *ponteiroPosicaoEntrada[i].d;
+        }
+    }
+}
+
+void atualizaWOculto(int parametro, double **matriz_W_Oculto, Neuronio *ponteiroPosicaoEntrada){
+    
+    for(int i=0; i<parametro; i++){
+        for(int j=0; j<536; j++){
+            matriz_W_Oculto[i][j] = matriz_W_Oculto[i][j] + ponteiroPosicaoEntrada[i].v *ponteiroPosicaoEntrada[i].d;
+        }
+    }
+}
+
+void atualizaWSaida(int parametro, double * vetor_W_Saida, Neuronio *ponteiroPosicaoOculto, NeuronioS *ponteiroPosicaoSaida){
+
+    for(int j=0; j<parametro; j++){
+        vetor_W_Saida[j] = vetor_W_Saida[j] + ponteiroPosicaoOculto[j].v * ponteiroPosicaoSaida->d;
+    }
+}
+
+void atualizaBEntrada(Neuronio *ponteiroPosicaoEntrada){
+
+    for(int i; i<536; i++){
+        ponteiroPosicaoEntrada[i].b = ponteiroPosicaoEntrada[i].b * ponteiroPosicaoEntrada[i].d;
+    }
+}
+
+void atualizaBOculto(Neuronio *ponteiroPosicaoOculto, int parametro){
+
+    for(int i; i<parametro; i++){
+        ponteiroPosicaoOculto[i].b = ponteiroPosicaoOculto[i].b * ponteiroPosicaoOculto[i].d;
+    }
+}
+
+void atualizaBSaida(NeuronioS *ponteiroPosicaoSaida){
+
+    ponteiroPosicaoSaida->b = ponteiroPosicaoSaida->b * ponteiroPosicaoSaida->d;
 }
