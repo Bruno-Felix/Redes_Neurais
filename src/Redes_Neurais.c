@@ -338,7 +338,7 @@ void criarNeuronioSaida(int tamanho){
     double v = 0;
 }
 
-double calculoEntrada(int i, double **matriz, Neuronio *ponteiroPosicao, double **vetorEntradaW){
+double calculoEntrada(int k, int i, double **matriz, Neuronio *ponteiroPosicao, double **vetorEntradaW){
 
     double somatorio = 0;
     double aux = 0;
@@ -348,7 +348,7 @@ double calculoEntrada(int i, double **matriz, Neuronio *ponteiroPosicao, double 
     for(int j=0; j<536;j++){
         //printf("                            vetorEntradaW: %lf\n", vetorEntradaW[i][j]);
         //printf("matriz %lf\n", matriz[i][j]);
-        somatorio += vetorEntradaW[i][j] * (matriz[1][j]);
+        somatorio += vetorEntradaW[i][j] * (matriz[k][j]);
     }
 
     aux =  somatorio + ponteiroPosicao[i].b;
@@ -357,21 +357,42 @@ double calculoEntrada(int i, double **matriz, Neuronio *ponteiroPosicao, double 
     v = ponteiroPosicao[i].v;
     //printf("%lf\n", v);
 
+   
+}
+
+double calculoOculta(int k, int i, double *vetor, Neuronio *ponteiroPosicao, double **vetorOcultoW, int parametro){
+
+    double somatorio = 0;
+    double aux = 0;
+
+    double v;
+
+    for(int j=0; j<parametro;j++){
+        //printf("                            vetorEntradaW: %lf\n", vetorEntradaW[i][j]);
+        //printf("matriz %lf\n", matriz[i][j]);
+        somatorio += vetorOcultoW[i][j] * (matriz[k][j]);
+    }
+
+    aux =  somatorio + ponteiroPosicao[i].b;
+    ponteiroPosicao[i].v = 1/(1 + exp(-aux));
+
+    v = ponteiroPosicao[i].v;
+    
     return v;
 }
 
+double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreinamento, Neuronio *ponteiroPosicaoEntrada, Neuronio *ponteiroPosicaoOculto, double **vetorEntradaW, double **vetorOcultoW, int parametro){
 
 
+    double vetorVEntrada[536];
+    double vetorVOculto[parametro];
 
+    for(int i=0; i<536; i++){
+        vetorVEntrada[i] = calculoEntrada(k, i, matrizTreinamento, ponteiroPosicaoEntrada, vetorEntradaW);
+    }
 
-//void RedeneuralTreinamento(int *VetorStatusTreinamento,int *VetorStatusTreinamento,double **matrizTreinamento,double **matrizTeste,int parametro){
-//
-//}
+    for(int i; i<parametro; i++){
+        vetorVOculto[i] = calculoOculta(k, i, vetorVEntrada, ponteiroPosicaoOculto, vetorOcultoW);
+    }
 
-
-/* void liberacamada2(int *parametro){
-  for (size_t i = 0; i < *parametro; i++){
-    free ponteiroPosicaoOculto[i];
-  }
-  free ponteiroPosicaoOculto;
-} */
+}

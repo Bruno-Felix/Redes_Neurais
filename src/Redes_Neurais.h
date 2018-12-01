@@ -23,10 +23,10 @@ double **criarMatriz_W_Oculto(int parametro);
 void criaNeuronioSaida(int );
 
 
-double calculoEntrada(int i, double **matriz, Neuronio *ponteiroPosicao, double **vetorEntradaW);
-double *calculoOculta(int i, double *vetorEntrada, Neuronio **ponteiroPosicao, int parametro, double **vetorOcultoW);
+double calculoEntrada(int k, int i, double **matriz, Neuronio *ponteiroPosicao, double **vetorEntradaW);
+double  calculoOculta(int k, int i, double *vetor, Neuronio *ponteiroPosicao, double **vetorOcultoW, int parametro);
 
-
+double calculaGeracao(int k, int i, double **matrizTreste, double **matrizTreinamento, Neuronio *ponteiroPosicaoEntrada, Neuronio *ponteiroPosicaoOculto, double **vetorEntradaW, double **vetorOcultoW, int parametro);
 
 
 
