@@ -31,19 +31,17 @@ int main(int argc, char *argv[]){
     Neuronio *ponteiroPosicaoEntrada = criarCamadaEntrada();
     Neuronio *ponteiroPosicaoOculto = criarCamadaOculta(Tamanho);
 
-<<<<<<< HEAD
+
     double **vetorEntradaW = criarMatriz_W_Entrada();
     double **vetorOcultoW = criarMatriz_W_Oculto(Tamanho);
-=======
-    for (int i = 0; i < 536; ) {
-      //printf("entrou\n");
-      vetorEntrada[i] = calculoEntrada(i, matrizTreinamento[i], ponteiroPosicaoEntrada);
-      //printf("v: %lf\n", vetorEntrada[i]);
-      i++;
-      printf("%d\n", i);
+
+    double vetorVEntrada[536];
+
+    for(int i = 0; i<536; ){
+        vetorVEntrada[i] = calculoEntrada(i, matrizTreinamento, ponteiroPosicaoEntrada, vetorEntradaW);
+        i++;
     }
-    double *vetorOculto = calculoOculta(i, vetorEntrada, ponteiroPosicaoOculto, Tamanho);
->>>>>>> 9ed7fb65ccf5a9b32ad063bdf6e20b61d456522e
+
 
     return 0;
 }
